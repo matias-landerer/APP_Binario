@@ -8,6 +8,7 @@ class VentanaPrincipal(QWidget):
     def __init__(self) -> None:
         super().__init__()
         self.setGeometry(500, 80, 400, 600)
+        self.setWindowTitle('APPBinario')
         self.label = QLabel('Ingrese su número a transformar: ', self)
         self.input_num = QLineEdit('', self)
         self.selector_numero = QComboBox(self)
@@ -17,7 +18,7 @@ class VentanaPrincipal(QWidget):
         
         hbox_ledit = QHBoxLayout()
         hbox_cbox = QHBoxLayout()
-        vbox = QVBoxLayout()
+        self.vbox = QVBoxLayout()
         
         hbox_ledit.addStretch(1)
         hbox_ledit.addWidget(self.label)
@@ -29,16 +30,31 @@ class VentanaPrincipal(QWidget):
         hbox_cbox.addWidget(self.boton_seleccionar)
         hbox_cbox.addStretch(1)
 
-        vbox.addLayout(hbox_ledit)
-        vbox.addLayout(hbox_cbox)
-        vbox.addStretch(1)
-        self.setLayout(vbox)
-
+        self.vbox.addLayout(hbox_ledit)
+        self.vbox.addLayout(hbox_cbox)
+        self.vbox.addStretch(1)
+        self.setLayout(self.vbox)
     
     def boton_presionado(self) -> None:
         texto = self.selector_numero.currentText()
         num = self.input_num.text()
         self.senal_tipo_numero.emit(texto, num)
+    
+    def mostrar_resultado(self, resultado: tuple) -> None:
+        self.resultado_1 = QLabel(f'{resultado[0]}', self)
+        self.resultado_2 = QLabel(f'{resultado[1]}', self)
+        
+        hbox = QHBoxLayout()
+        hbox.addStretch(1)
+        hbox.addWidget(self.resultado_1)
+        hbox.addStretch(1)
+        hbox.addWidget(self.resultado_2)
+        hbox.addStretch(1)
+        
+        
+        self.vbox.addLayout(hbox)
+        self.vbox.addStretch(1)
+        self.setLayout(self.vbox)
 
 
 if __name__ == '__main__':

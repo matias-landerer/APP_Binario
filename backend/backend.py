@@ -1,4 +1,4 @@
-import transformador
+import backend.transformador as transformador
 from PyQt5.QtCore import QObject, pyqtSignal
 
 class Transformador(QObject):
@@ -24,7 +24,7 @@ class Transformador(QObject):
             hexa = transformador.decimal_a_hexadecimal(deci)
 
             print(f'\nBinario: {bina}\nHexadecimal: {hexa}')
-            self.senal_resultado((f'Binario: {bina}', 'Hexadecimal: {hexa}'))
+            self.senal_resultado.emit((f'Binario: {bina}', f'Hexadecimal: {hexa}'))
         
         except ValueError as error:
             print(error)
@@ -39,7 +39,7 @@ class Transformador(QObject):
             hexa = transformador.binario_a_hexadecimal(bina)
 
             print(f'\nDecimal: {deci}\nHexadecimal: {hexa}')
-            self.senal_resultado((f'Decimal: {deci}', 'Hexadecimal: {hexa}'))
+            self.senal_resultado.emit((f'Decimal: {deci}', f'Hexadecimal: {hexa}'))
 
         except ValueError as error:
             print(error)
@@ -53,7 +53,7 @@ class Transformador(QObject):
             bina = transformador.hexadecimal_a_binario(hexa)
 
             print(f'\nDecimal: {deci}\nBinario: {bina}')
-            self.senal_resultado((f'Decimal: {deci}', 'Binario: {bina}'))
+            self.senal_resultado.emit((f'Decimal: {deci}', f'Binario: {bina}'))
       
         except ValueError as error:
             print(error)
