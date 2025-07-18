@@ -11,6 +11,7 @@ class VentanaPrincipal(QWidget):
         self.setWindowTitle('APPBinario')
         self.label = QLabel('Ingrese su número a transformar: ', self)
         self.input_num = QLineEdit('', self)
+        self.input_num.returnPressed.connect(self.boton_presionado)
         self.selector_numero = QComboBox(self)
         self.selector_numero.addItems(['Decimal', 'Binario', 'Hexadecimal'])
         self.boton_seleccionar = QPushButton('Seleccionar', self)
