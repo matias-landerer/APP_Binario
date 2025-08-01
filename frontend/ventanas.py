@@ -19,6 +19,7 @@ class VentanaPrincipal(QWidget):
 
         hbox_ledit = QHBoxLayout()
         hbox_cbox = QHBoxLayout()
+        hbox_resultado = QHBoxLayout()
         self.vbox = QVBoxLayout()
         
         hbox_ledit.addStretch(1)
@@ -33,6 +34,8 @@ class VentanaPrincipal(QWidget):
 
         self.vbox.addLayout(hbox_ledit)
         self.vbox.addLayout(hbox_cbox)
+        self.vbox.addStretch(1)
+        self.vbox.addLayout(hbox_resultado)
         self.vbox.addStretch(1)
         self.setLayout(self.vbox)
     
@@ -52,8 +55,11 @@ class VentanaPrincipal(QWidget):
         hbox.addWidget(self.resultado_2)
         hbox.addStretch(1)
         
+        self.vbox.takeAt(self.vbox.count() - 1)
+        self.remover_layout(self.vbox, (self.vbox.itemAt(self.vbox.count() - 1)))
         self.vbox.addLayout(hbox)
         self.vbox.addStretch(1)
+
         self.setLayout(self.vbox)
     
     def mostrar_error(self, error: str) -> None:
@@ -63,10 +69,26 @@ class VentanaPrincipal(QWidget):
         hbox.addStretch(1)
         hbox.addWidget(self.error)
         hbox.addStretch(1)
-        
+
+        self.vbox.takeAt(self.vbox.count() - 1)
+        self.remover_layout(self.vbox, (self.vbox.itemAt(self.vbox.count() - 1)))
         self.vbox.addLayout(hbox)
         self.vbox.addStretch(1)
+        
         self.setLayout(self.vbox)
+    
+    def remover_layout(self, vbox: QVBoxLayout, hbox: QHBoxLayout) -> None:
+        for i in range(vbox.count()):
+            item = vbox.itemAt(i)
+            if item.layout() == hbox:
+                vbox.takeAt(i)
+                for j in reversed(range(hbox.count())):
+                    wid = hbox.itemAt(j)
+                    if wid.widget():
+                        wid.widget().setParent(None)
+                    elif wid.spacerItem():
+                        hbox.takeAt(j)
+    
 
 
 
