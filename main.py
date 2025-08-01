@@ -11,6 +11,7 @@ class AppBinario:
     def conectar(self) -> None:
         self.front.senal_tipo_numero.connect(self.back.selector)
         self.back.senal_resultado.connect(self.front.mostrar_resultado)
+        self.back.senal_error.connect(self.front.mostrar_error)
 
 if __name__ == '__main__':
     def hook(type, value, traceback) -> None:

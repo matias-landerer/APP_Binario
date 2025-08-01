@@ -3,6 +3,7 @@ from PyQt5.QtCore import QObject, pyqtSignal
 
 class Transformador(QObject):
     senal_resultado = pyqtSignal(tuple)
+    senal_error = pyqtSignal(str)
     
     def __init__(self) -> None:
         super().__init__()
@@ -28,9 +29,13 @@ class Transformador(QObject):
         
         except ValueError as error:
             print(error)
+            self.senal_error.emit(str(error))
 
     def binario(self, bina: str) -> None:
         try:
+            if bina == '':
+                raise ValueError('Número binario inválido.')
+            
             for i in bina:
                 if i not in ['0', '1']:
                     raise ValueError('Número binario inválido.')
@@ -43,6 +48,7 @@ class Transformador(QObject):
 
         except ValueError as error:
             print(error)
+            self.senal_error.emit(str(error))
 
     def hexadecimal(self, hexa: str) -> None:
         try:
@@ -57,6 +63,7 @@ class Transformador(QObject):
       
         except ValueError as error:
             print(error)
+            self.senal_error.emit(str(error))
 
 
 if __name__ == '__main__':

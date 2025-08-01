@@ -16,7 +16,7 @@ class VentanaPrincipal(QWidget):
         self.selector_numero.addItems(['Decimal', 'Binario', 'Hexadecimal'])
         self.boton_seleccionar = QPushButton('Seleccionar', self)
         self.boton_seleccionar.clicked.connect(self.boton_presionado)
-        
+
         hbox_ledit = QHBoxLayout()
         hbox_cbox = QHBoxLayout()
         self.vbox = QVBoxLayout()
@@ -52,10 +52,22 @@ class VentanaPrincipal(QWidget):
         hbox.addWidget(self.resultado_2)
         hbox.addStretch(1)
         
+        self.vbox.addLayout(hbox)
+        self.vbox.addStretch(1)
+        self.setLayout(self.vbox)
+    
+    def mostrar_error(self, error: str) -> None:
+        self.error = QLabel(error, self)
+        
+        hbox = QHBoxLayout()
+        hbox.addStretch(1)
+        hbox.addWidget(self.error)
+        hbox.addStretch(1)
         
         self.vbox.addLayout(hbox)
         self.vbox.addStretch(1)
         self.setLayout(self.vbox)
+
 
 
 if __name__ == '__main__':
