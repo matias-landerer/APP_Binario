@@ -14,13 +14,22 @@ def binario_a_hexadecimal(bina: str) -> str:
     return hexa
 
 def decimal_a_binario(deci: str) -> str:
-    bina = bin(int(deci))[2:]
+    if '-' not in deci:
+        bina = bin(int(deci))[2:]
+    else:
+        bina = bin(int(deci[1:]))[2:]
+        for i in bina:
+            if i == '0':
+                i = '1'
+            elif i == '1':
+                i = '0'
+    
     if len(bina) % 4 != 0:
-        resto = len(bina) % 4
-        n_bits_extra = 4 - resto
-        bina_final = '0' * n_bits_extra
-        bina_final += bina
-        bina = bina_final
+            resto = len(bina) % 4
+            n_bits_extra = 4 - resto
+            bina_final = '0' * n_bits_extra
+            bina_final += bina
+            bina = bina_final
     return bina
 
 def decimal_a_hexadecimal(deci: str) -> str:

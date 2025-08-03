@@ -52,7 +52,7 @@ class Transformador(QObject):
 
     def hexadecimal(self, hexa: str) -> None:
         try:
-            if (len(hexa) < 3) or (hexa[:2] != '0x' and hexa[:2] != '0X'):
+            if (len(hexa) < 3) or (hexa[:2].lower() != '0x' and hexa[:3].lower() != '-0x'):
                 raise ValueError('Hexadecimal inválido.')
             
             deci = transformador.hexadecimal_a_decimal(hexa)
